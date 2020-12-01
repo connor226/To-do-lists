@@ -3,6 +3,7 @@ let input = document.getElementById("todo-input");
 let left_count = document.getElementById("left_count");
 
 let cnt = 1;
+let deleted = 0;
 
 input.addEventListener('keydown',() => {
     if(event.keyCode == 13){
@@ -30,6 +31,20 @@ input.addEventListener('keydown',() => {
         newli.appendChild(newimg);
         addhere.appendChild(newli);
         input.value = "";
-        left_count.innerText = cnt;// to be modified
+        left_count.innerText = cnt - deleted;
     }
 })
+
+addEventListener("mousedown",()=>{
+    let i;
+    for(i = 0; i < cnt; i ++){
+        let bb = document.getElementById("img" + i);
+        if(bb == null)  continue;
+        bb.onclick = () =>{
+            let tmp = bb.parentNode;
+            tmp.remove();
+            deleted ++;
+            left_count.innerText = cnt - deleted;
+        }
+    }
+} )
